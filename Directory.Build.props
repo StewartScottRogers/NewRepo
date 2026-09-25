@@ -1,0 +1,49 @@
+<Project>
+
+  <!--
+    Settings shared by every project in the solution. Per CLAUDE.md, project files
+    carry no duplicate of anything set here.
+  -->
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+  </PropertyGroup>
+
+  <!--
+    Strip the project-name suffix out of the default namespace. The directory is
+    Curl.Core.UnitLibrary because the layout pairs it with Curl.Core.UnitTests, but
+    consumers should write "using Curl.Core;" - carrying .UnitLibrary into every
+    namespace would put a build-layout detail in the public API. A test project
+    lands in the same namespace as the code it tests, which is what you want.
+  -->
+  <PropertyGroup>
+    <RootNamespace Condition="$(MSBuildProjectName.EndsWith('.UnitLibrary'))">$(MSBuildProjectName.Replace('.UnitLibrary', ''))</RootNamespace>
+    <RootNamespace Condition="$(MSBuildProjectName.EndsWith('.UnitTests'))">$(MSBuildProjectName.Replace('.UnitTests', ''))</RootNamespace>
+  </PropertyGroup>
+
+  <!--
+    Test projects are identified by the .UnitTests suffix. They are never packed,
+    and they are exempt from the XML-documentation requirement: CS1591 on a public
+    test class is noise, and warnings are errors here.
+  -->
+  <PropertyGroup Condition="$(MSBuildProjectName.EndsWith('UnitTests'))">
+    <IsPackable>false</IsPackable>
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <!--
+    Production projects document every public member (CLAUDE.md) and are held to the
+    trim/ahead-of-time analyzers, because Curl.Console publishes native AOT and a
+    library that is not AOT-clean would only fail later, further from its cause.
+  -->
+  <PropertyGroup Condition="!$(MSBuildProjectName.EndsWith('UnitTests'))">
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <IsAotCompatible>true</IsAotCompatible>
+  </PropertyGroup>
+
+</Project>
