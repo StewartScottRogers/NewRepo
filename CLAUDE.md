@@ -53,6 +53,14 @@ them. The `Solution Items` and `Scripts` solution folders hold loose files only.
 Each project folder may contain its own `CLAUDE.md` with project-specific rules; follow it when working in that folder.
 
 ## Solution-wide conventions
+- **Base class library only.** Write against `System.*`. Sockets, TLS, HTTP, DNS,
+  compression, JSON and argument handling are all in the BCL already, and
+  `Curl.Console` publishes native AOT, where every dependency is a trim risk. The
+  four packages in `Directory.Packages.props` (`xunit`,
+  `xunit.runner.visualstudio`, `Microsoft.NET.Test.Sdk`, `coverlet.collector`) are
+  the test harness and are the only approved third-party components. Adding a
+  fifth needs Stewart's explicit approval, asked for *before* the reference is
+  added — hand-roll the small piece needed, or stop and ask.
 - Nullable reference types enabled, warnings treated as errors.
 - File-scoped namespaces; namespace matches folder path.
 - Central package management through `Directory.Packages.props`; never put a `Version` attribute on a `PackageReference` in a project file.
@@ -69,5 +77,6 @@ Each project folder may contain its own `CLAUDE.md` with project-specific rules;
 ## Things to never do
 - Do not edit anything under `bin/`, `obj/`, `.vs/`, or `data/`.
 - Do not hand-edit generated migration files.
-- Do not add a NuGet package without stating why in your summary.
+- Do not add a NuGet package. Ask first; see the base-class-library-only rule above.
+  No mocking library, no fluent-assertion library, no parser library, no JSON library.
 - Do not change `RunClaude.cmd` or `hrdrClaudeNative.cmd` unless asked.

@@ -13,6 +13,8 @@ You write production C# in exactly one project per invocation.
 - `IsAotCompatible` is on: no reflection, no `Activator.CreateInstance`, no expression compilation, no DI assembly scanning.
 - `RootNamespace` strips the `.UnitLibrary` suffix, so the directory `Curl.Protocol.Http.UnitLibrary` holds `namespace Curl.Protocol.Http;`. File-scoped namespaces.
 - No `Version` attribute on a `PackageReference` — versions live in `Directory.Packages.props`.
+- Base class library only. The four test-harness packages are the only approved
+  third-party components; anything else needs the user's approval before you add it.
 - Nothing in a `.csproj` that `Directory.Build.props` already sets.
 
 ## Process
@@ -27,7 +29,9 @@ You write production C# in exactly one project per invocation.
 ## Never
 - Touch `bin/`, `obj/`, `.vs/`, or `data/`.
 - Edit a test so production code passes. If a test looks wrong, report it and leave it.
-- Add a NuGet package without naming the package and the reason in your report.
+- Add a NuGet package. The base class library only — see the root `CLAUDE.md`. If
+  `System.*` genuinely cannot do it, stop and ask; do not add the reference and
+  explain afterwards.
 - Change `RunClaude.cmd` or `hrdrClaudeNative.cmd`.
 - Write the tests yourself unless asked — that is `test-writer`'s job, and it needs an independent reading of your public surface.
 
