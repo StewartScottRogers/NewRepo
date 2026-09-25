@@ -10,9 +10,10 @@ without asking a question.
 
 | ID | Item | Requirement | Notes |
 | --- | --- | --- | --- |
-| BL-001 | Fill in `Product/Product-Overview.md` | — | Blocks requirements work; nothing else can be prioritised until scope is written down. |
-| BL-002 | Author the first functional requirements in `Product/Requirements.md` | — | Depends on BL-001. |
-| BL-003 | Add the first buildable project to `Curl.slnx` | — | Also clears the `NU1503` restore warning on the solution. |
+| BL-002 | Author the first functional requirements in `Product/Requirements.md` | — | Overview is done; requirements can now be derived from the 274-option compatibility surface. |
+| BL-003 | Scaffold the Phase 1 projects (`Abstractions`, `Networking`, `Core`, `Cli`, `Output`, `Console`, `File`, `Http` + their `.UnitTests`) | — | Also clears the `NU1503` restore warning on the solution. |
+| BL-004 | Decide the licence: keep GPL-3.0 or relicense to MIT/Apache-2.0 | — | Open question 1 in the overview. Blocks first public release. |
+| BL-005 | Decide how curl's 2,126 upstream test cases are driven from .NET | — | Open question 3. Determines the conformance harness. |
 
 ## In progress
 
@@ -25,6 +26,7 @@ without asking a question.
 | ID | Item | Completed | Notes |
 | --- | --- | --- | --- |
 | BL-000 | Create `Curl.slnx` and the `Documentation` shared project | 2026-09-25 | ADR-0001. |
+| BL-001 | Fill in `Product/Product-Overview.md` | 2026-09-25 | Researched against curl 8.21.0: 29 schemes, 274 options, 76 `--write-out` variables, exit codes 0–101, 2,126 upstream test cases. |
 
 ## Icebox
 

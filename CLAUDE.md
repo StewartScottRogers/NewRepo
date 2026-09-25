@@ -4,7 +4,11 @@
 Curl is a C# solution maintained in Microsoft Visual Studio.
 Repository: https://github.com/StewartScottRogers/Curl
 
-> TODO: Replace this line with one or two sentences describing what Curl does.
+Curl is a drop-in replacement for the `curl` command-line tool, written in C# on
+.NET 10: the same options, exit codes and output bytes, so existing scripts cannot
+tell which binary they invoked. Every protocol lives in its own class library behind
+injected interfaces so it can be unit tested without a network. See
+`Documentation/Product/Product-Overview.md`.
 
 ## Toolchain
 - .NET Software Development Kit 10 (see `global.json` once added). Target framework: `net10.0` unless a project states otherwise.
@@ -20,14 +24,32 @@ Repository: https://github.com/StewartScottRogers/Curl
 Always build and run the fast tests before declaring a task finished.
 
 ## Repository layout
+Flat and linear. Every project is a directory immediately under the repository root.
+There is no `src/` and no `tests/`; do not create them.
 ```
 Curl/
 ├── Curl.slnx
-├── src/        ← production projects, one folder per project
-├── tests/      ← test projects, mirror names of src projects with .Tests suffix
-├── data/       ← local runtime data (gitignored, never read or modify)
-└── .claude/    ← Claude Code configuration (rules, skills, agents, hooks)
+├── Curl.Core.UnitLibrary/        ← production library
+├── Curl.Core.UnitTests/          ← its tests, immediately beside it
+├── Curl.Protocol.Http.UnitLibrary/
+├── Curl.Protocol.Http.UnitTests/
+├── ...                           ← 48 projects, one flat alphabetical run
+├── Documentation/                ← shared project (docs and planning)
+├── data/                         ← local runtime data (gitignored, never read or modify)
+└── .claude/                      ← Claude Code configuration
 ```
+
+### Project naming
+- Production library: `Curl.<Area>.UnitLibrary`, protocols `Curl.Protocol.<Name>.UnitLibrary`.
+- Tests: the same name with `.UnitTests` instead of `.UnitLibrary`.
+- The executable is `Curl.Console` — no `.UnitLibrary` suffix, because it is not a
+  library. It is the only exception.
+- Names sort so each `.UnitTests` lands directly after the library it tests. Keep it
+  that way.
+
+In `Curl.slnx`, projects are listed as one flat run with no solution folders around
+them. The `Solution Items` and `Scripts` solution folders hold loose files only.
+
 Each project folder may contain its own `CLAUDE.md` with project-specific rules; follow it when working in that folder.
 
 ## Solution-wide conventions
@@ -37,6 +59,12 @@ Each project folder may contain its own `CLAUDE.md` with project-specific rules;
 - Shared build settings go in `Directory.Build.props`, not individual project files.
 - Async all the way; no `.Result` or `.Wait()`.
 - Register new services with dependency injection; no static service locators.
+- Protocol libraries reference `Curl.Protocol.Abstractions.UnitLibrary` and never
+  each other. A protocol referencing another protocol is a build break, not a smell.
+- Protocol handlers never construct a `Socket`, `SslStream` or `HttpClient`; they
+  receive `IConnection`. This is what keeps protocol tests off the network.
+- Inject `TimeProvider` for anything time-dependent; never `Thread.Sleep`.
+- Published native-AOT: no reflection-based DI scanning, no dynamic code paths.
 
 ## Things to never do
 - Do not edit anything under `bin/`, `obj/`, `.vs/`, or `data/`.
