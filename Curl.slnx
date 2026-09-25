@@ -1,0 +1,27 @@
+﻿<Solution>
+
+  <!--
+    Curl.slnx - XML solution format (.slnx), readable and merge-friendly in a way
+    the legacy .sln never was. Requires .NET SDK 9.0.200+ or Visual Studio 17.13+;
+    this repo is on SDK 10.0.401.
+
+    Documentation and .claude/Claude are shared projects: they carry no build output, so they add
+    nothing to build time while keeping the product and planning documents
+    visible in Solution Explorer.
+  -->
+
+  <Folder Name="/Solution Items/">
+    <File Path=".gitattributes" />
+    <File Path=".gitignore" />
+    <File Path="LICENSE.txt" />
+  </Folder>
+
+  <Folder Name="/Scripts/">
+    <File Path="RunClaude.cmd" />
+    <File Path="hrdrClaudeNative.cmd" />
+  </Folder>
+
+  <Project Path="Documentation/Documentation.shproj" />
+  <Project Path=".claude/Claude.shproj" />
+
+</Solution>
