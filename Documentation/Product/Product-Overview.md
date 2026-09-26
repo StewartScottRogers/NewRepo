@@ -136,11 +136,13 @@ This is checkable, so it gets checked: a test in
 `Curl.Protocol.Abstractions.UnitTests` asserts the reference graph and CI fails on a
 violation. Modularity that is only a convention decays on contact with a deadline.
 
-### Rule 2 — the socket is an injected seam
+### Rule 2 — the transport is an injected seam
 
 Protocol handlers never construct a `Socket`, an `SslStream` or an `HttpClient`.
-They receive `IConnection`. That single decision is what makes "deeply unit
-testable" true rather than aspirational:
+They receive `IConnection` — except `file`, which has no wire and receives
+`IFileSystem` instead (`Documentation/Planning/Decisions/ADR-0002-ifilesystem-as-the-second-protocol-seam.md`).
+That single decision is what makes "deeply unit testable" true rather than
+aspirational:
 
 ```
 FtpProtocolHandler(IConnection, IDnsResolver, TimeProvider)

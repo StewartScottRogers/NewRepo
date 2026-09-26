@@ -10,6 +10,8 @@ This library may reference `Curl.Protocol.Abstractions.UnitLibrary` and nothing
 else horizontal. Referencing another protocol library is a build break, and
 `Curl.Protocol.Abstractions.UnitTests` fails if one appears.
 
-Never construct a `Socket`, `SslStream` or `HttpClient` here. Take `IConnection`
-so the tests in the matching `.UnitTests` project can drive this code from a
-recorded byte stream with no network.
+Never construct a `FileStream` here. Take `IFileSystem` so the tests in the
+matching `.UnitTests` project can drive this code against an in-memory fake with no
+disk access. See `Documentation/Planning/Decisions/ADR-0002-ifilesystem-as-the-second-protocol-seam.md`
+for why `file` uses `IFileSystem` instead of the `IConnection` seam every other
+protocol library uses.
