@@ -32,5 +32,5 @@ additions specific to a protocol:
    options, exit codes, and output bytes have been compared against upstream curl.
 
 Report at the end: schemes registered, the DI registration added, test count, the exit codes
-covered, and any option of curl's for this scheme that is still unimplemented — as backlog
-items, not as a footnote.
+covered, and any option of curl's for this scheme that is still unimplemented — as tasks
+filed by `task-planner`, not as a footnote.

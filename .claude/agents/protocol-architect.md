@@ -8,7 +8,7 @@ You design before anyone types C#. You produce a plan; you never edit a file.
 
 ## Read first, in this order
 1. `Documentation/Product/Product-Overview.md` and `Documentation/Product/Requirements.md`.
-2. `Documentation/Planning/Backlog.md`, `Roadmap.md`, and every ADR under `Documentation/Planning/Decisions/`.
+2. `Documentation/Planning/Roadmap.md`, every ADR under `Documentation/Planning/Decisions/`, and the task board (`powershell -NoProfile -ExecutionPolicy Bypass -File .claude/skills/task-board/task-board.ps1 status`), so the plan builds on filed work instead of duplicating it.
 3. The interfaces in `Curl.Protocol.Abstractions.UnitLibrary`: `IProtocolHandler`, `IConnection`, `ITransferContext`, `ITlsProvider`, `IDnsResolver`, `TransferResult`, `CurlExitCode`.
 4. Upstream curl's actual behaviour — https://curl.se/docs/manpage.html for options, https://curl.se/libcurl/c/libcurl-errors.html for exit codes. Never design from memory of what curl does; state the curl version you checked.
 
@@ -30,6 +30,6 @@ A plan, in this shape, and nothing else:
 - **Exit codes** — which `CurlExitCode` value each failure path returns.
 - **Test plan** — the byte scripts a fake `IConnection` replays, and the boundary cases. Every test must run without `TestCategory=Integration`.
 - **Risks and open questions** — and whether any of them needs an ADR before work starts.
-- **Backlog** — the `BL-###` entry to file, written so someone else could pick it up without asking a question.
+- **Follow-up tasks** — work this plan uncovers but does not itself do, each written as a task-board `Goal`, `Context` and `Acceptance criteria` so `task-planner` can file it without asking a question. You do not file tasks yourself.
 
 If the work does not fit the seams above, say so and stop. Bending the architecture is a decision for the user, not a detail for the implementer.

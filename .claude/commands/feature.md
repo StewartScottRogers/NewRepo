@@ -11,6 +11,11 @@ red gate, and never fix another agent's output yourself.
 Track the stages as a task list so the state is visible, and report which stage you are on
 after each hand-off.
 
+When `/task-run` runs these stages for a task, the task file is the feature text: its
+`Goal`, `Context` and `Acceptance criteria` go to `protocol-architect` verbatim, and
+the acceptance criteria are gates alongside each stage's own. `/task-run`, not this
+pipeline, moves the task between states.
+
 1. **Plan** — delegate to `protocol-architect`. Give it the feature text above verbatim.
    *Gate:* the plan names the projects touched, the exact `CurlExitCode` for every failure
    path, and a test plan that needs no `TestCategory=Integration`. If it flags an open question
@@ -41,8 +46,9 @@ after each hand-off.
    change touches an option, an exit code, or output bytes. Skip for internal refactors.
    *Gate:* no **Blocker** findings. Majors either get fixed or get an ADR.
 
-8. **Document** — delegate to `docs-writer`: move the backlog item to `Done` with today's
-   date, add or update the requirement, and write the ADR if any stage called for one.
+8. **Document** — delegate to `docs-writer`: add or update the requirement, and write
+   the ADR if any stage called for one. Task state is not `docs-writer`'s job; `/task-run`
+   moves the task.
 
 Finish with a summary: what now works, the projects touched, test counts, and anything
-deferred with the backlog ID that carries it. Do not commit unless the user asks.
+deferred, filed as tasks by `task-planner`, with their task IDs. Do not commit unless the user asks.

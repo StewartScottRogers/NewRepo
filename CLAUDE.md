@@ -23,6 +23,13 @@ injected interfaces so it can be unit tested without a network. See
 
 Always build and run the fast tests before declaring a task finished.
 
+## Task board
+Work is tracked as Markdown files in the `Tasks` shared project, one file per task, and
+the folder a task sits in is its status: `Backlog`, `Doing`, `Blocked`, `Deferred`,
+`Done`, with timestamped archive folders under `Done`. Read
+`.claude/skills/task-board/SKILL.md` before creating, moving or editing a task, and move
+tasks only with its script. `/task-plan` files tasks, `/task-run` works them, and
+`/task-status` and `/task-archive` keep the board tidy.
 ## Repository layout
 Flat and linear. Every project is a directory immediately under the repository root.
 There is no `src/` and no `tests/`; do not create them.
@@ -35,6 +42,7 @@ Curl/
 ├── Curl.Protocol.Http.UnitTests/
 ├── ...                           ← 48 projects, one flat alphabetical run
 ├── Documentation/                ← shared project (docs and planning)
+├── Tasks/                        ← shared project (task board)
 ├── data/                         ← local runtime data (gitignored, never read or modify)
 └── .claude/                      ← Claude Code configuration
 ```

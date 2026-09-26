@@ -9,7 +9,9 @@
       "Bash(dotnet ef migrations list:*)",
       "Bash(git status:*)",
       "Bash(git diff:*)",
-      "Bash(git log:*)"
+      "Bash(git log:*)",
+      "Bash(powershell -NoProfile -ExecutionPolicy Bypass -File .claude/skills/task-board/task-board.ps1:*)",
+      "Bash(powershell -NoProfile -ExecutionPolicy Bypass -File .claude/skills/task-board/task-admin.ps1:*)"
     ],
     "ask": [
       "Bash(dotnet add package:*)",

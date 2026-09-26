@@ -71,6 +71,6 @@ every URL curl accepts. Measured against curl 8.21.0 (2026-06-24) on this machin
 This affects HTTP equally — `%2F` in a path, `--path-as-is` — not only `file`. It is
 **not** decided by this ADR; it is deferred to a separate decision owned by the
 Core and HTTP work (see `Documentation/Planning/Decisions/README.md` for the ADR
-process, and the backlog for the tracking item). Sources:
+process, and task BL-010 in `Tasks/` for the tracking item). Sources:
 <https://curl.se/docs/manpage.html> (`--path-as-is`) and
 <https://curl.se/docs/url-syntax.html>, both checked against curl 8.21.0.
