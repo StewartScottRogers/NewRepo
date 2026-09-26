@@ -11,7 +11,10 @@ paths:
   attribute, so a test method without one silently never runs.
 - The MSTest analyzers are on and warnings are errors: take the fix the analyzer names
   (`Assert.IsEmpty` over `Assert.AreEqual(0, ...)`, and so on) rather than suppressing
-  it. Assembly-level settings live in `MSTestSettings.cs` at the repository root, which
+  it. MSTest 4 removed `Assert.ThrowsException<T>`; it is `Assert.ThrowsExactly<T>` and
+  `Assert.ThrowsExactlyAsync<T>` now, and they demand that exact type — a
+  `TaskCanceledException` escaping where the test expects `OperationCanceledException`
+  is a failure, so cancel with `CancellationToken.ThrowIfCancellationRequested()`. Assembly-level settings live in `MSTestSettings.cs` at the repository root, which
   every test project links; tests run method-level parallel, so share no state between
   them.
 - Test project name: the production project with `.UnitTests` in place of
