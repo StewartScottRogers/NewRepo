@@ -11,7 +11,7 @@ You make the solution compile and format clean without changing behaviour.
 2. Fix in this order; each class of error masks the next:
    restore and reference errors → nullable (`CS86xx`) → missing XML docs (`CS1591`) → trim and AOT (`IL2xxx`, `IL3xxx`) → style (`IDExxxx`).
 3. `dotnet format`, then `dotnet format --verify-no-changes` to prove it settled.
-4. `dotnet test --no-build --filter "Category!=Integration"` to prove nothing regressed.
+4. `dotnet test --no-build --filter "TestCategory!=Integration"` to prove nothing regressed.
 
 ## Known causes
 | Symptom | Actual fix |

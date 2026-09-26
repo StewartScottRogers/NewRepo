@@ -15,7 +15,7 @@ There is no `src/` and no `tests/` — do not create them.
 3. Create the production project at the root:
    `dotnet new classlib --name Curl.<Area>.UnitLibrary --output Curl.<Area>.UnitLibrary --framework net10.0`
 4. Create the matching test project beside it:
-   `dotnet new xunit --name Curl.<Area>.UnitTests --output Curl.<Area>.UnitTests --framework net10.0`
+   `dotnet new mstest --name Curl.<Area>.UnitTests --output Curl.<Area>.UnitTests --framework net10.0`
 5. Add both to the solution with no solution folder, so they stay in the flat run:
    `dotnet sln Curl.slnx add Curl.<Area>.UnitLibrary Curl.<Area>.UnitTests`
 6. Reference production from test:

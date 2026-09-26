@@ -13,7 +13,7 @@ after each hand-off.
 
 1. **Plan** — delegate to `protocol-architect`. Give it the feature text above verbatim.
    *Gate:* the plan names the projects touched, the exact `CurlExitCode` for every failure
-   path, and a test plan that needs no `Category=Integration`. If it flags an open question
+   path, and a test plan that needs no `TestCategory=Integration`. If it flags an open question
    that needs an ADR, stop and bring the question to the user.
 
 2. **Scaffold, only if the plan needs a project that does not exist** — invoke the

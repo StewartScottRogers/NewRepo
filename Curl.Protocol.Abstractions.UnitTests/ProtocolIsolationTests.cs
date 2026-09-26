@@ -5,11 +5,12 @@ namespace Curl.Protocol.Abstractions;
 /// <summary>
 /// Guards the architecture rule that makes the protocol libraries independent.
 /// </summary>
+[TestClass]
 public sealed class ProtocolIsolationTests
 {
     private const string Abstractions = "Curl.Protocol.Abstractions.UnitLibrary";
 
-    [Fact]
+    [TestMethod]
     public void ProtocolLibrary_References_OnlyAbstractions()
     {
         var violations = new List<string>();
@@ -25,18 +26,25 @@ public sealed class ProtocolIsolationTests
             }
         }
 
-        Assert.Empty(violations);
+        Assert.IsEmpty(
+            violations,
+            $"A protocol library may reference only {Abstractions}: "
+                + string.Join(", ", violations));
     }
 
-    [Fact]
+    [TestMethod]
     public void Abstractions_References_Nothing()
     {
         var project = Path.Combine(RepositoryRoot(), Abstractions, Abstractions + ".csproj");
 
-        Assert.Empty(ProjectReferences(project));
+        var references = ProjectReferences(project);
+
+        Assert.IsEmpty(
+            references,
+            $"{Abstractions} must reference nothing: " + string.Join(", ", references));
     }
 
-    [Fact]
+    [TestMethod]
     public void EveryProtocolLibrary_HasAMatchingTestProject()
     {
         var root = RepositoryRoot();
@@ -45,7 +53,7 @@ public sealed class ProtocolIsolationTests
         {
             var tests = ProjectName(project).Replace(".UnitLibrary", ".UnitTests");
 
-            Assert.True(
+            Assert.IsTrue(
                 File.Exists(Path.Combine(root, tests, tests + ".csproj")),
                 $"{tests} is missing.");
         }
@@ -76,7 +84,7 @@ public sealed class ProtocolIsolationTests
             directory = directory.Parent;
         }
 
-        Assert.NotNull(directory);
+        Assert.IsNotNull(directory);
 
         return directory!.FullName;
     }

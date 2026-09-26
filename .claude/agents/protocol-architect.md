@@ -28,7 +28,7 @@ A plan, in this shape, and nothing else:
 - **Projects touched** — exact directory names; flag any new project so `new-project` can scaffold it.
 - **Types to add** — file by file, with the public surface of each.
 - **Exit codes** — which `CurlExitCode` value each failure path returns.
-- **Test plan** — the byte scripts a fake `IConnection` replays, and the boundary cases. Every test must run without `Category=Integration`.
+- **Test plan** — the byte scripts a fake `IConnection` replays, and the boundary cases. Every test must run without `TestCategory=Integration`.
 - **Risks and open questions** — and whether any of them needs an ADR before work starts.
 - **Backlog** — the `BL-###` entry to file, written so someone else could pick it up without asking a question.
 

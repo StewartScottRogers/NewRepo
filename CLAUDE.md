@@ -17,7 +17,7 @@ injected interfaces so it can be unit tested without a network. See
 
 ## Build and test commands
 - Build: `dotnet build`
-- Test (fast, default): `dotnet test --filter "Category!=Integration"`
+- Test (fast, default): `dotnet test --filter "TestCategory!=Integration"`
 - Test (everything): `dotnet test`
 - Format: `dotnet format`
 
@@ -56,11 +56,12 @@ Each project folder may contain its own `CLAUDE.md` with project-specific rules;
 - **Base class library only.** Write against `System.*`. Sockets, TLS, HTTP, DNS,
   compression, JSON and argument handling are all in the BCL already, and
   `Curl.Console` publishes native AOT, where every dependency is a trim risk. The
-  four packages in `Directory.Packages.props` (`xunit`,
-  `xunit.runner.visualstudio`, `Microsoft.NET.Test.Sdk`, `coverlet.collector`) are
-  the test harness and are the only approved third-party components. Adding a
-  fifth needs Stewart's explicit approval, asked for *before* the reference is
-  added — hand-roll the small piece needed, or stop and ask.
+  one package in `Directory.Packages.props` — Microsoft's `MSTest` meta-package —
+  is the test harness and is the only approved dependency in the solution. Adding a
+  second needs Stewart's explicit approval, asked for *before* the reference is
+  added — hand-roll the small piece needed, or stop and ask. Test projects use
+  MSTest, the framework in the .NET SDK; no third-party test, mocking or assertion
+  library is permitted.
 - Nullable reference types enabled, warnings treated as errors.
 - File-scoped namespaces; namespace matches folder path.
 - Central package management through `Directory.Packages.props`; never put a `Version` attribute on a `PackageReference` in a project file.

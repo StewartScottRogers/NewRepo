@@ -21,7 +21,7 @@ additions specific to a protocol:
    - which of curl's options apply to this scheme, from https://curl.se/docs/manpage.html.
 
 3. `test-writer` builds the fake `IConnection` from that byte script. No test in the
-   protocol's `.UnitTests` project may carry `[Trait("Category", "Integration")]` — needing
+   protocol's `.UnitTests` project may carry `[TestCategory("Integration")]` — needing
    a live server means the seam is wrong, so report it instead of tagging around it.
 
 4. `protocol-implementer` writes the handler. It references

@@ -146,7 +146,7 @@ testable" true rather than aspirational:
 FtpProtocolHandler(IConnection, IDnsResolver, TimeProvider)
         │
         ├─ unit test  → FakeConnection replaying recorded bytes.
-        │               No network. No server. No [Trait("Category","Integration")].
+        │               No network. No server. No [TestCategory("Integration")].
         │
         └─ production → SocketConnection, wrapped by SslStream when the
                         scheme is secure.
@@ -233,7 +233,7 @@ Checkable by someone outside the project, in priority order:
    disagreement is a bug here until proven otherwise.
 3. **Exit-code fidelity.** Every `CURLE_*` value this implementation can reach is
    returned in the same circumstances as upstream.
-4. **Unit tests need no network.** `dotnet test --filter "Category!=Integration"`
+4. **Unit tests need no network.** `dotnet test --filter "TestCategory!=Integration"`
    passes with networking disabled. If a protocol needs a live server to test, the
    seam is in the wrong place.
 5. **Drops onto PATH.** A published `curl.exe` can replace the system binary and

@@ -37,6 +37,15 @@
   </PropertyGroup>
 
   <!--
+    Every test project compiles the shared MSTestSettings.cs at the repository root,
+    which carries the assembly-level parallelization policy MSTest's MSTEST0001
+    analyzer insists on. It is linked rather than copied so the policy has one home.
+  -->
+  <ItemGroup Condition="$(MSBuildProjectName.EndsWith('UnitTests'))">
+    <Compile Include="$(MSBuildThisFileDirectory)MSTestSettings.cs" Link="MSTestSettings.cs" />
+  </ItemGroup>
+
+  <!--
     Production projects document every public member (CLAUDE.md) and are held to the
     trim/ahead-of-time analyzers, because Curl.Console publishes native AOT and a
     library that is not AOT-clean would only fail later, further from its cause.
